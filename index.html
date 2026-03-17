@@ -1,0 +1,171 @@
+<!doctype html>
+<meta charset="UTF-8" />
+
+<style>
+    body {
+        font-family: sans-serif;
+        max-width: 800px;
+        margin: 40px auto;
+        line-height: 1.6;
+    }
+
+    #search {
+        width: 100%;
+        padding: 8px;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    a {
+        color: blue;
+        text-decoration: none;
+    }
+
+    pre {
+        background: #eee;
+        padding: 10px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    br {
+        margin: 0;
+    }
+</style>
+
+<input id="search" placeholder="search" />
+
+<div id="results"></div>
+
+<hr />
+
+<div id="view" />
+
+<script>
+    const PAGE_CACHE = {};
+    let PAGES = [];
+
+    // query parser
+    function getPage() {
+        return new URLSearchParams(location.search).get("p") || "main";
+    }
+
+    // markdown parser
+    function md(text) {
+        text = text.replace(/^### (.*$)/gim, "<h3>$1</h3>");
+        text = text.replace(/^## (.*$)/gim, "<h2>$1</h2>");
+        text = text.replace(/^# (.*$)/gim, "<h1>$1</h1>");
+
+        text = text.replace(/\*\*(.*?)\*\*/gim, "<b>$1</b>");
+        text = text.replace(/\*(.*?)\*/gim, "<i>$1</i>");
+
+        text = text.replace(/^\- (.*$)/gim, "<li>$1</li>");
+        text = text.replace(/(<li>.*<\/li>)/gims, "<ul>$1</ul>");
+
+        text = text.replace(
+            /```([\s\S]*?)```/gim,
+            "<pre><code>$1</code></pre>",
+        );
+
+        text = text.replace(/\[\[(.*?)\]\]/gim, (m, p) => {
+            return `<a href="?p=${p}">${p}</a>`;
+        });
+
+        text = text.replace(/\n/g, "<br>");
+
+        return text;
+    }
+
+    // load page
+    async function load(page) {
+        let res = await fetch(page + ".md");
+        let txt = res.ok
+            ? await res.text()
+            : "このページはまだ書かれていません。";
+
+        document.getElementById("view").innerHTML = md(txt);
+    }
+
+    // load page list
+    async function loadPageList() {
+        const res = await fetch("pages");
+        const txt = await res.text();
+
+        PAGES = txt
+            .split("\n")
+            .map((x) => x.trim())
+            .filter((x) => x !== "");
+    }
+
+    // preload pages
+    async function preloadPages() {
+        for (const name of PAGES) {
+            try {
+                const res = await fetch(name + ".md");
+
+                if (res.ok) {
+                    const text = await res.text();
+                    PAGE_CACHE[name] = text + "\n" + name;
+                }
+            } catch (e) {
+                console.log("skip:", name);
+            }
+        }
+    }
+
+    // search
+    function search(query) {
+        query = query.toLowerCase();
+
+        if (query.length < 2) return [];
+
+        const results = [];
+
+        for (const name in PAGE_CACHE) {
+            const text = PAGE_CACHE[name].toLowerCase();
+
+            if (text.includes(query)) {
+                results.push(name);
+            }
+        }
+
+        return results;
+    }
+
+    // search UI
+    document.getElementById("search").oninput = (e) => {
+        let q = e.target.value;
+
+        if (q === "") {
+            document.getElementById("results").innerHTML = "";
+            return;
+        }
+
+        let r = search(q);
+
+        document.getElementById("results").innerHTML = r
+            .map((p) => {
+                let name = p.split("/").pop();
+
+                return `<div>
+                <a href="?p=${p}">${name}</a>
+                <small style="color:gray">${p}</small>
+            </div>`;
+            })
+            .join("");
+    };
+
+    // init
+    async function init() {
+        await loadPageList();
+        await preloadPages();
+
+        load(getPage());
+    }
+
+    init();
+</script>
