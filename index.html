@@ -60,15 +60,15 @@
         text = text.replace(/\*(.*?)\*/gim, "<i>$1</i>");
 
         text = text.replace(
-            /~c/gi,
+            /~c\n/gi,
             '<div style="background-color: white;color: black;outline: 2px solid;"><code>',
         );
         text = text.replace(
-            /~t/gi,
+            /~t\n/gi,
             '<div style="background-color: black;color: white;outline: 2px solid;"><code>',
         );
         text = text.replace(
-            /~a/gi,
+            /~a\n/gi,
             '<div style="background-color: teal;color: black;outline: 2px solid;"><code>',
         );
         text = text.replace(/~e/gi, "</code></div>");
