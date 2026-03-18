@@ -68,8 +68,18 @@
         text = text.replace(/(<li>.*<\/li>)/gims, "<ul>$1</ul>");
 
         text = text.replace(
-            /```([\s\S]*?)```/gim,
-            "<pre><code>$1</code></pre>",
+            /```term\n([\s\S]*?)\n```/gim,
+            "<pre style=\"background-color: black;color: white;\""><code>$1</code></pre>",
+        );
+
+        text = text.replace(
+            /```code\n([\s\S]*?)\n```/gim,
+            "<pre style=\"background-color: white;color: black;\""><code>$1</code></pre>",
+        );
+
+        text = text.replace(
+            /```ans\n([\s\S]*?)\n```/gim,
+            "<pre style=\"background-color: gray;color: rebeccapurple;\""><code>$1</code></pre>",
         );
 
         text = text.replace(/\[\[(.*?)\]\]/gim, (m, p) => {
