@@ -23,11 +23,7 @@
     h1,
     h2,
     h3,
-    h4,
-    h5,
-    h6,
-    br,
-    li {
+    br {
         margin: 0;
     }
 </style>
@@ -69,7 +65,7 @@
         );
         text = text.replace(
             /~a\n/gi,
-            '<div style="background-color: teal;color: black;outline: 2px solid;"><code>',
+            '<div style="background-color: gray;color: black;outline: 2px solid;"><code>',
         );
         text = text.replace(/~e/gi, "</code></div>");
 
