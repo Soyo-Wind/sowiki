@@ -67,17 +67,17 @@
         text = text.replace(/^\- (.*$)/gim, "<li>$1</li>");
 
         text = text.replace(
-            /```term\n([\s\S]*?)\n```/gim,
+            /```term\n([\s\S]*?)\n?```/gim,
             '<pre style="background-color: black;color: white;"><code>$1</code></pre>',
         );
 
         text = text.replace(
-            /```code\n([\s\S]*?)\n```/gim,
+            /```code\n([\s\S]*?)\n?```/gim,
             '<pre style="background-color: white;color: black;"><code>$1</code></pre>',
         );
 
         text = text.replace(
-            /```ans\n([\s\S]*?)\n```/gim,
+            /```ans\n([\s\S]*?)\n?```/gim,
             '<pre style="background-color: gray;color: rebeccapurple;"><code>$1</code></pre>',
         );
 
