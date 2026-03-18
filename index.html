@@ -70,7 +70,6 @@
         text = text.replace(/~e/gi, "</code></div>");
 
         text = text.replace(/\[\[(.*?)\]\]/gim, (m, p) => {
-            console.log(m, p);
             return `<a href="?p=${p}">${p}</a>`;
         });
 
