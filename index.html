@@ -65,17 +65,17 @@
         text = text.replace(/\*(.*?)\*/gim, "<i>$1</i>");
 
         text = text.replace(
-            /^```term^([\s\S]*?)$```/gim,
+            /^```term\n(.*?)```/gim,
             '<pre style="background-color: black;color: white;"><code>$1</code></pre>',
         );
 
         text = text.replace(
-            /^```code^([\s\S]*?)$```/gim,
+            /^```code\n(.*?)```/gim,
             '<pre style="background-color: white;color: black;"><code>$1</code></pre>',
         );
 
         text = text.replace(
-            /^```ans^([\s\S]*?)$```/gim,
+            /^```ans\n(.*?)```/gim,
             '<pre style="background-color: gray;color: rebeccapurple;"><code>$1</code></pre>',
         );
 
