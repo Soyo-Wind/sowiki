@@ -57,14 +57,14 @@
     // markdown parser
     function md(text) {
         text = text.replace("\r", "");
-        text = text.replace(/^### (.*$)/gim, "<h3>$1</h3>");
-        text = text.replace(/^## (.*$)/gim, "<h2>$1</h2>");
-        text = text.replace(/^# (.*$)/gim, "<h1>$1</h1>");
+        text = text.replace(/^### (.*$)\n/gim, "<h3>$1</h3>");
+        text = text.replace(/^## (.*$)\n/gim, "<h2>$1</h2>");
+        text = text.replace(/^# (.*$)\n/gim, "<h1>$1</h1>");
 
         text = text.replace(/\*\*(.*?)\*\*/gim, "<b>$1</b>");
         text = text.replace(/\*(.*?)\*/gim, "<i>$1</i>");
 
-        text = text.replace(/^\- (.*$)/gim, "<li>$1</li>");
+        text = text.replace(/^\- (.*$)\n/gim, "<li>$1</li>");
 
         text = text.replace(
             /```term\n([\s\S]*?)\n?```/gim,
