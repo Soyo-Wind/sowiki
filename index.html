@@ -65,7 +65,6 @@
         text = text.replace(/\*(.*?)\*/gim, "<i>$1</i>");
 
         text = text.replace(/^\- (.*$)/gim, "<li>$1</li>");
-        text = text.replace(/(<li>.*<\/li>)/gims, "<ul>$1</ul>");
 
         text = text.replace(
             /```term\n([\s\S]*?)\n```/gim,
