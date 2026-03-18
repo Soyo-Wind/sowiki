@@ -65,19 +65,18 @@
         text = text.replace(/\*(.*?)\*/gim, "<i>$1</i>");
 
         text = text.replace(
-            /^```term\n(.*?)```/gim,
-            '<pre style="background-color: black;color: white;"><code>$1</code></pre>',
+            /~c/gi,
+            '<code style="background-color: white;color: black;">',
         );
-
         text = text.replace(
-            /^```code\n(.*?)```/gim,
-            '<pre style="background-color: white;color: black;"><code>$1</code></pre>',
+            /~t/gi,
+            '<code style="background-color: black;color: white;">',
         );
-
         text = text.replace(
-            /^```ans\n(.*?)```/gim,
-            '<pre style="background-color: gray;color: rebeccapurple;"><code>$1</code></pre>',
+            /~a/gi,
+            '<code style="background-color: teal;color: black;">',
         );
+        text = text.replace(/~e/gi, "</code>");
 
         text = text.replace(/\[\[(.*?)\]\]/gim, (m, p) => {
             return `<a href="?p=${p}">${p}</a>`;
