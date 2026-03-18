@@ -57,25 +57,25 @@
     // markdown parser
     function md(text) {
         text = text.replace("\r", "");
-        text = text.replace(/^### (.*$)\n/gim, "<h3>$1</h3>");
-        text = text.replace(/^## (.*$)\n/gim, "<h2>$1</h2>");
-        text = text.replace(/^# (.*$)\n/gim, "<h1>$1</h1>");
+        text = text.replace(/^### (.*$)$/gim, "<h3>$1</h3>");
+        text = text.replace(/^## (.*$)$/gim, "<h2>$1</h2>");
+        text = text.replace(/^# (.*$)$/gim, "<h1>$1</h1>");
 
         text = text.replace(/\*\*(.*?)\*\*/gim, "<b>$1</b>");
         text = text.replace(/\*(.*?)\*/gim, "<i>$1</i>");
 
         text = text.replace(
-            /```term\n([\s\S]*?)\n?```/gim,
+            /^```term^([\s\S]*?)$```/gim,
             '<pre style="background-color: black;color: white;"><code>$1</code></pre>',
         );
 
         text = text.replace(
-            /```code\n([\s\S]*?)\n?```/gim,
+            /^```code^([\s\S]*?)$```/gim,
             '<pre style="background-color: white;color: black;"><code>$1</code></pre>',
         );
 
         text = text.replace(
-            /```ans\n([\s\S]*?)\n?```/gim,
+            /^```ans^([\s\S]*?)$```/gim,
             '<pre style="background-color: gray;color: rebeccapurple;"><code>$1</code></pre>',
         );
 
