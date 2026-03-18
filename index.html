@@ -121,9 +121,6 @@
     // search
     function search(query) {
         query = query.toLowerCase();
-
-        if (query.length < 2) return [];
-
         const results = [];
 
         for (const name in PAGE_CACHE) {
