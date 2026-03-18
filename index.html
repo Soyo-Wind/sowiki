@@ -20,10 +20,6 @@
         text-decoration: none;
     }
 
-    code {
-        outline: 2px solid;
-    }
-
     h1,
     h2,
     h3,
@@ -65,17 +61,17 @@
 
         text = text.replace(
             /~c/gi,
-            '<code style="background-color: white;color: black;">',
+            '<div style="background-color: white;color: black;outline: 2px solid;"><code>',
         );
         text = text.replace(
             /~t/gi,
-            '<code style="background-color: black;color: white;">',
+            '<div style="background-color: black;color: white;outline: 2px solid;"><code>',
         );
         text = text.replace(
             /~a/gi,
-            '<code style="background-color: teal;color: black;">',
+            '<div style="background-color: teal;color: black;outline: 2px solid;"><code>',
         );
-        text = text.replace(/~e/gi, "</code>");
+        text = text.replace(/~e/gi, "</code></div>");
 
         text = text.replace(/\[\[(.*?)\]\]/gim, (m, p) => {
             return `<a href="?p=${p}">${p}</a>`;
