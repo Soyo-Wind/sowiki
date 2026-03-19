@@ -2,11 +2,8 @@
 
 # H1
 ## H2
-### H3
 **bold**
 *italic*
-- li
-- li2
 
 code a.sh
 ~c
